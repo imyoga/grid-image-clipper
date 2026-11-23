@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grid Image Clipper</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <aside class="sidebar">
+    <header class="sidebar__header">
+      <h1>Grid Clipper</h1>
+      <p class="muted">Click the image to place grid lines. Export keeps full resolution.</p>
+    </header>
+
+    <section class="panel">
+      <label class="file-btn">
+        <input type="file" id="fileInput" accept="image/*" hidden />
+        Upload image
+      </label>
+      <p id="imageMeta" class="meta muted">No image loaded</p>
+    </section>
+
+    <section class="panel">
+      <p class="panel__label">Place line</p>
+      <div class="segmented" role="radiogroup" aria-label="Line orientation">
+        <button type="button" class="segmented__btn is-active" data-mode="horizontal" role="radio" aria-checked="true">
+          Horizontal
+        </button>
+        <button type="button" class="segmented__btn" data-mode="vertical" role="radio" aria-checked="false">
+          Vertical
+        </button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <p class="panel__label">Grid</p>
+      <p id="gridStats" class="meta">—</p>
+      <div class="btn-row">
+        <button type="button" id="undoBtn" class="btn btn--ghost" disabled>Undo line</button>
+        <button type="button" id="clearBtn" class="btn btn--ghost" disabled>Clear all</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <p class="panel__label">Export</p>
+      <label class="field">
+        <span>Format</span>
+        <select id="formatSelect">
+          <option value="png">PNG (lossless)</option>
+          <option value="jpeg">JPEG (quality 100%)</option>
+          <option value="webp">WebP (lossless)</option>
+        </select>
+      </label>
+      <button type="button" id="downloadBtn" class="btn btn--primary" disabled>
+        Download all cells (ZIP)
+      </button>
+      <p id="exportStatus" class="meta muted" aria-live="polite"></p>
+    </section>
+  </aside>
+
+  <main class="workspace">
+    <div id="stage" class="stage stage--empty">
+      <p class="stage__placeholder">Upload an image to start placing grid lines</p>
+      <div id="stageInner" class="stage__inner" hidden>
+        <canvas id="viewCanvas" class="stage__canvas"></canvas>
+        <div id="hitLayer" class="stage__hit" tabindex="0" aria-label="Image grid editor"></div>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
